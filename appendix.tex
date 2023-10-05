@@ -1,0 +1,47 @@
+\documentclass{article} 
+
+\usepackage{amsmath}
+
+%\title{Simple Sample} % Sets article title
+%\author{My Name} % Sets authors name
+%\date{\today} % Sets date for date compiled
+
+% The preamble ends with the command \begin{document}
+\begin{document} % All begin commands must be paired with an end command somewhere
+
+\section{VAR(1) simulation proceedure} % creates a section
+
+This section describes the process of estimating the moments of a stationary VAR(1) process with mean zero.
+It more or less follows Section 2.2.5 of Tsay (2014).
+The goal is to simulate a $k$ dimensional VAR(1) process
+\begin{equation}
+  \mathbf{z}_t = \mathbf{\phi}_1 \mathbf{z}_{t-1} + \mathbf{a}_t \text{,}
+\end{equation}
+where $\mathbf{\phi}_1$ is the lag-1 cross-correlation matrix
+and $\mathbf{a}_t$ is a vector of iid random variables with mean zero and covariance matrix $\mathbf{\Sigma_a}$.
+In this case, $\mathbf{z}_t$ is a $k$ by $n$ matrix, 
+where each of the $k$ columns is a length $n$ time series of gage-catchment precipitation ratios.
+To simulate the process, we first estimate $\mathbf{\phi}_1$ and $\mathbf{\Sigma_a}$ from our dataset.
+Begin by estimating the cross-covariance matrix of $\mathbf{z}_t$
+\begin{equation}
+  \mathbf{\Gamma}_0 = E(\mathbf{z}_t \mathbf{z}_t') \text{,}
+\end{equation}
+and the lag-1 cross-covariance matrix
+\begin{equation}
+  \mathbf{\Gamma}_1 = E(\mathbf{z}_t \mathbf{z}_{t-1}') \text{.}
+\end{equation}
+Then, the lag-1 cross-correlation matrix $\mathbf{\phi}_1$ is given by
+\begin{equation}
+  \mathbf{\phi}_1 = \mathbf{\Gamma}_1 \mathbf{\Gamma}_0^{-1} \text{.}
+\end{equation}
+and the covariance matrix $\mathbf{\Sigma_a}$ is
+\begin{equation}
+  \text{vec}(\mathbf{\Sigma_a}) = (\mathbf{I}_{k^2} - \mathbf{\phi}_1 \otimes \mathbf{\phi}_1) \text{vec}(\mathbf{\Gamma}_0) \text{.}
+\end{equation}
+
+
+
+
+
+
+\end{document} % This is the end of the document
